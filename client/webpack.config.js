@@ -9,17 +9,11 @@ var path = require('path');
 var sourcePath = path.join(__dirname, './src');
 var outPath = path.join(__dirname, './dist');
 
-// helper methods
-const extractLess = new ExtractTextPlugin({
-    filename: '[name].[contenthash].css',
-    disable: process.env.NODE_ENV === 'development'
-});
-
 // webpack configuration
 module.exports = {
     context: sourcePath,
     entry: {
-        main: './app.tsx',
+        main: entries,
         vendor: [
             'react',
             'react-dom',
@@ -50,6 +44,11 @@ module.exports = {
                     'awesome-typescript-loader'
                 ],
                 exclude: /node_modules/
+            },
+            { 
+                enforce: 'pre', 
+                test: /\.js$/, 
+                loader: 'source-map-loader' 
             },
             { 
                 test: /\.html$/, 
@@ -83,7 +82,19 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             filename: 'vendor.bundle.js',
-            minChunks: Infinity
+            minChunks: function (module, count) {
+                // creates a common vendor js file for libraries in node_modules
+                return isVendor(module);
+            }
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'common',
+            filename: 'common.bundle.js',
+            chunks: _.keys(entries),
+            minChunks: function (module, count) {
+                // creates a common js file for code not in node_modules and repeated more than 1 time
+                return !isVendor(module) && count > 1;
+            }
         }),
         new HtmlWebpackPlugin({
             template: 'index.html'
@@ -97,3 +108,16 @@ module.exports = {
         contentBase: sourcePath
     }
 };
+
+const entries = {
+    main: './app.tsx'
+};
+
+const extractLess = new ExtractTextPlugin({
+    filename: '[name].[contenthash].css',
+    disable: process.env.NODE_ENV === 'development'
+});
+
+function isVendor(module) {
+    return module.context && module.context.indexOf('node_modules') !== -1;
+}
