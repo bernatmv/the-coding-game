@@ -1,0 +1,30 @@
+# Logs
+/**/logs/
+*.log
+yarn-error.log
+npm-debug.log*
+
+# Dependencies
+/**/node_modules/
+
+# Transpiled files
+/**/dist/
+/**/coverage/
+/**/build/
+
+# VS Code
+.vscode
+!.vscode/tasks.js
+
+# NetBeans IDE
+/nbproject/
+
+# JetBrains IDEs
+.idea/
+.idea/
+
+# Optional npm cache directory
+.npm/
+
+# Misc
+.DS_Store
