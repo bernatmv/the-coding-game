@@ -3,6 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RootState from '../reducers/state/rootState';
 import TheCodingGameProps from './theCodingGameProps';
+import Login from './login/login';
+import * as AuthActions from '../actions/authActions';
 
 import * as styles from './theCodingGame.less';
 
@@ -10,8 +12,9 @@ import * as styles from './theCodingGame.less';
 export class TheCodingGame extends React.Component<TheCodingGameProps, {}> {
 
     render() {
+        const {actions} = this.props;
         return <div className={styles.container}>
-            Bello!
+            <Login login={actions.auth.login} />
         </div>;
     }
 }
@@ -21,5 +24,9 @@ function mapStateToProps(state: RootState) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {};
+    return {
+        actions: {
+            auth: bindActionCreators(AuthActions as any, dispatch)
+        }
+    };
 }

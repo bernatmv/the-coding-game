@@ -1,0 +1,96 @@
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    justify-content: center;
+    width: 100%;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 1em;
+    }
+    
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: darkgrey;
+        outline: 1px solid slategrey;
+    }
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+}
+
+.logo {
+    position: absolute;
+    margin-top: -100px;
+    width: 300px;
+    height: 300px;
+}
+
+.logo__main {
+    position: relative;
+}
+
+.logo__before {
+    position: absolute !important; /* Overwriting Semantic UI */
+    top: 0;
+    left: 2px;
+    text-shadow: -2px 0 red;
+    width: 100% !important; /* Overwriting Semantic UI */
+    height: 100% !important; /* Overwriting Semantic UI */
+    background: transparent;
+    clip: rect(44px, 300px, 56px, 0); /* A box from (0, 44) to (300, 56) => top, right, bottom, left */
+    animation: glitchAnim1 1s infinite linear alternate-reverse;
+}
+
+.logo__after {
+    position: absolute !important; /* Overwriting Semantic UI */
+    top: 0;
+    left: -2px;
+    text-shadow: -2px 0 blue;
+    width: 100% !important; /* Overwriting Semantic UI */
+    height: 100% !important; /* Overwriting Semantic UI */
+    background: transparent;
+    clip: rect(44px, 300px, 56px, 0); /* A box from (0, 44) to (300, 56) => top, right, bottom, left */
+    animation: glitchAnim2 1s infinite linear alternate-reverse;
+}
+
+.input {
+    text-align: center;
+    width: 300px;
+    height: 400px;
+    padding-top: 360px;        
+}
+
+button {
+    border: 1px solid #111 !important; /* Overwriting Semantic UI */
+    padding: 0.5em !important; /* Overwriting Semantic UI */
+    font-size: 15px !important; /* Overwriting Semantic UI */
+    line-height: 1.2em !important; /* Overwriting Semantic UI */
+    width: 80% !important; /* Overwriting Semantic UI */
+    background: #444 !important; /* Overwriting Semantic UI */
+    color: #fff !important; /* Overwriting Semantic UI */
+    font-family: helvetica, sans-serif !important; /* Overwriting Semantic UI */
+    background: linear-gradient(to bottom, #222, #444) !important; /* Overwriting Semantic UI */
+}
+
+.my-loop(@counter: 100%) when (@counter > 0%) {
+    .my-loop(@counter - 10%);
+    @{counter} { clip: rect(unit(`Math.floor(Math.random() * 300)`, px), 300px, unit(`Math.floor(Math.random() * 300)`, px), 0); }
+}
+
+@keyframes glitchAnim1 {
+    .my-loop();
+}
+
+@keyframes glitchAnim2 {
+    .my-loop();
+}
