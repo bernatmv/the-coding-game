@@ -1,4 +1,4 @@
 interface LoginProps {
-    login: (userId: string) => void;
+    play: () => void;
 }
 export default LoginProps;

@@ -1,9 +1,11 @@
 import { RouteComponentProps } from 'react-router';
-import * as AuthActions from '../actions/authActions';
+import SystemModel from '../commons/services/models/systemModel';
+import * as SystemActions from '../actions/systemActions';
 
 interface TheCodingGameProps extends RouteComponentProps<void> {
     actions: {
-        auth: typeof AuthActions;
+        system: typeof SystemActions;
     };
+    system: SystemModel;
 }
 export default TheCodingGameProps;

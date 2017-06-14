@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, Store, combineReducers } from 'redux';
 import logger from '../middlewares/loggerMiddleware';
 import RootState from '../reducers/state/rootState';
+import systemReducer from '../reducers/systemReducer';
 
 export function configureStore(initialState?: RootState): Store<RootState> {
     // dev tools
@@ -8,6 +9,7 @@ export function configureStore(initialState?: RootState): Store<RootState> {
         ? window.devToolsExtension()(createStore)
         : createStore;
     let reducers = {
+        system: systemReducer
     };
 
     // applyMiddleware
@@ -18,7 +20,10 @@ export function configureStore(initialState?: RootState): Store<RootState> {
 
     // hot reload to save app state
     if (module.hot) {
-        //TODO: add reducers
+        module.hot.accept('../reducers/systemReducer', () => {
+            const nextReducer = require('../reducers/systemReducer');
+            store.replaceReducer(nextReducer);
+        });
     }
 
     return store;

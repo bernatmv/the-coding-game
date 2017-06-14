@@ -1,4 +1,5 @@
 export default class ActionsConstants {
-    // AUTH
-    static readonly Login: string = 'Login';
+    // SYSTEM
+    static readonly Login: string = 'LoginAction';
+    static readonly Play: string = 'PlayAction';
 }
