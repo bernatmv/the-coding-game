@@ -3,21 +3,18 @@ import LoginProps from './loginProps';
 
 import * as styles from './login.less';
 
-import * as logoImage from '../../assets/images/logo.svg';
-
 export default class Login extends React.Component<LoginProps, {}> {
     render(): JSX.Element {
-        return (
-            <div className={styles.container}>
-                <div className={styles.menu}>
-                    <div className={styles.logo}>
-                        <img src={logoImage} className={styles.logo__main} />
-                        <img src={logoImage} className={styles.logo__before} />
-                        <img src={logoImage} className={styles.logo__after} />
-                    </div>
-                    <button>Bello!</button>
-                </div>
+        return <div className={styles.container}>
+            <div className={styles.title}>
+                The Coding Game
             </div>
-        );
+            <div className={styles.svg_wrapper}>
+                <svg height='60' width='320' xmlns='http://www.w3.org/2000/svg'>
+                    <rect className={styles.shape} height='60' width='320' />
+                </svg>
+                <div className={styles.button}>PLAY</div>
+            </div>
+        </div>;
     }
 }
